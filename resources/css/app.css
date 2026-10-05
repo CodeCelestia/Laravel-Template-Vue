@@ -1,0 +1,343 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans:
+        Instrument Sans, ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar-background);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+@layer utilities {
+    body,
+    html {
+        --font-sans:
+            'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+            'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+            'Noto Color Emoji';
+    }
+}
+
+:root {
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(0 0% 3.9%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(0 0% 3.9%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(0 0% 3.9%);
+    --primary: hsl(221.2 83.2% 53.3%);
+    --primary-foreground: hsl(210 40% 98%);
+    --secondary: hsl(0 0% 92.1%);
+    --secondary-foreground: hsl(0 0% 9%);
+    --muted: hsl(0 0% 96.1%);
+    --muted-foreground: hsl(0 0% 45.1%);
+    --accent: hsl(0 0% 96.1%);
+    --accent-foreground: hsl(0 0% 9%);
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --border: hsl(0 0% 92.8%);
+    --input: hsl(0 0% 89.8%);
+    --ring: hsl(221.2 83.2% 53.3%);
+    --chart-1: hsl(12 76% 61%);
+    --chart-2: hsl(173 58% 39%);
+    --chart-3: hsl(197 37% 24%);
+    --chart-4: hsl(43 74% 66%);
+    --chart-5: hsl(27 87% 67%);
+    --radius: 0.5rem;
+
+    /* Default Sidebar: Mist Blue */
+    --sidebar-background: #E8F1FA;
+    --sidebar-foreground: hsl(215 28% 20%);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: color-mix(in srgb, var(--primary) 12%, transparent);
+    --sidebar-accent-foreground: var(--primary);
+    --sidebar-border: #D2E2F2;
+    --sidebar-ring: var(--ring);
+    --sidebar: #E8F1FA;
+}
+
+.dark {
+    --background: hsl(0 0% 3.9%);
+    --foreground: hsl(0 0% 98%);
+    --card: hsl(0 0% 3.9%);
+    --card-foreground: hsl(0 0% 98%);
+    --popover: hsl(0 0% 3.9%);
+    --popover-foreground: hsl(0 0% 98%);
+    --primary: hsl(217.2 91.2% 59.8%);
+    --primary-foreground: hsl(222.2 47.4% 11.2%);
+    --secondary: hsl(0 0% 14.9%);
+    --secondary-foreground: hsl(0 0% 98%);
+    --muted: hsl(0 0% 16.08%);
+    --muted-foreground: hsl(0 0% 63.9%);
+    --accent: hsl(0 0% 14.9%);
+    --accent-foreground: hsl(0 0% 98%);
+    --destructive: hsl(0 84% 60%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --border: hsl(0 0% 14.9%);
+    --input: hsl(0 0% 14.9%);
+    --ring: hsl(217.2 91.2% 59.8%);
+    --chart-1: hsl(220 70% 50%);
+    --chart-2: hsl(160 60% 45%);
+    --chart-3: hsl(30 80% 55%);
+    --chart-4: hsl(280 65% 60%);
+    --chart-5: hsl(340 75% 55%);
+
+    /* Dark Mode Default Sidebar */
+    --sidebar-background: hsl(222 47% 10%);
+    --sidebar-foreground: hsl(210 40% 96%);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: color-mix(in srgb, var(--primary) 18%, transparent);
+    --sidebar-accent-foreground: var(--primary);
+    --sidebar-border: hsl(217 33% 18%);
+    --sidebar-ring: var(--ring);
+    --sidebar: hsl(222 47% 10%);
+}
+
+/* ==========================================================================
+   Themes (Enterprise Colors)
+   ========================================================================== */
+
+/* Theme: Ocean Blue */
+html[data-theme="ocean"] {
+    --primary: hsl(221.2 83.2% 53.3%);
+    --primary-foreground: hsl(210 40% 98%);
+    --ring: hsl(221.2 83.2% 53.3%);
+}
+html.dark[data-theme="ocean"] {
+    --primary: hsl(217.2 91.2% 59.8%);
+    --primary-foreground: hsl(222.2 47.4% 11.2%);
+    --ring: hsl(217.2 91.2% 59.8%);
+}
+
+/* Theme: Emerald Green */
+html[data-theme="emerald"] {
+    --primary: hsl(158 64% 39%);
+    --primary-foreground: hsl(0 0% 100%);
+    --ring: hsl(158 64% 39%);
+}
+html.dark[data-theme="emerald"] {
+    --primary: hsl(158 64% 52%);
+    --primary-foreground: hsl(160 84% 6%);
+    --ring: hsl(158 64% 52%);
+}
+
+/* Theme: Royal Purple */
+html[data-theme="purple"] {
+    --primary: hsl(262.1 83.3% 57.8%);
+    --primary-foreground: hsl(0 0% 100%);
+    --ring: hsl(262.1 83.3% 57.8%);
+}
+html.dark[data-theme="purple"] {
+    --primary: hsl(263.4 70% 65%);
+    --primary-foreground: hsl(260 84% 6%);
+    --ring: hsl(263.4 70% 65%);
+}
+
+/* ==========================================================================
+   Sidebar Color Variations
+   ========================================================================== */
+
+/* Sidebar: Mist Blue (#E8F1FA) */
+html[data-sidebar="mist-blue"] {
+    --sidebar-background: #E8F1FA;
+    --sidebar-foreground: hsl(215 28% 20%);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: color-mix(in srgb, var(--primary) 12%, transparent);
+    --sidebar-accent-foreground: var(--primary);
+    --sidebar-border: #D2E2F2;
+    --sidebar-ring: var(--ring);
+    --sidebar: #E8F1FA;
+}
+html.dark[data-sidebar="mist-blue"] {
+    --sidebar-background: hsl(222 47% 10%);
+    --sidebar-foreground: hsl(210 40% 96%);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: color-mix(in srgb, var(--primary) 18%, transparent);
+    --sidebar-accent-foreground: var(--primary);
+    --sidebar-border: hsl(217 33% 18%);
+    --sidebar-ring: var(--ring);
+    --sidebar: hsl(222 47% 10%);
+}
+
+/* Sidebar: Soft Sage (#EAF5EF) */
+html[data-sidebar="soft-sage"] {
+    --sidebar-background: #EAF5EF;
+    --sidebar-foreground: hsl(150 25% 18%);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: color-mix(in srgb, var(--primary) 12%, transparent);
+    --sidebar-accent-foreground: var(--primary);
+    --sidebar-border: #D0E7D9;
+    --sidebar-ring: var(--ring);
+    --sidebar: #EAF5EF;
+}
+html.dark[data-sidebar="soft-sage"] {
+    --sidebar-background: hsl(155 25% 9%);
+    --sidebar-foreground: hsl(140 25% 96%);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: color-mix(in srgb, var(--primary) 18%, transparent);
+    --sidebar-accent-foreground: var(--primary);
+    --sidebar-border: hsl(155 20% 18%);
+    --sidebar-ring: var(--ring);
+    --sidebar: hsl(155 25% 9%);
+}
+
+/* Sidebar: Soft Lavender (#F1EDFA) */
+html[data-sidebar="soft-lavender"] {
+    --sidebar-background: #F1EDFA;
+    --sidebar-foreground: hsl(260 25% 20%);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: color-mix(in srgb, var(--primary) 12%, transparent);
+    --sidebar-accent-foreground: var(--primary);
+    --sidebar-border: #DDD5F2;
+    --sidebar-ring: var(--ring);
+    --sidebar: #F1EDFA;
+}
+html.dark[data-sidebar="soft-lavender"] {
+    --sidebar-background: hsl(260 25% 9%);
+    --sidebar-foreground: hsl(260 25% 96%);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: color-mix(in srgb, var(--primary) 18%, transparent);
+    --sidebar-accent-foreground: var(--primary);
+    --sidebar-border: hsl(260 20% 18%);
+    --sidebar-ring: var(--ring);
+    --sidebar: hsl(260 25% 9%);
+}
+
+
+@theme {
+    /* System-wide Typography Scale (+5% increase) */
+    --text-xs: 0.7875rem;
+    --text-xs--line-height: calc(1.05 / 0.7875);
+
+    --text-sm: 0.91875rem;
+    --text-sm--line-height: calc(1.3125 / 0.91875);
+
+    --text-base: 1.05rem;
+    --text-base--line-height: calc(1.575 / 1.05);
+
+    --text-lg: 1.18125rem;
+    --text-lg--line-height: calc(1.8375 / 1.18125);
+
+    --text-xl: 1.3125rem;
+    --text-xl--line-height: calc(1.8375 / 1.3125);
+
+    --text-2xl: 1.575rem;
+    --text-2xl--line-height: calc(2.1 / 1.575);
+
+    --text-3xl: 1.96875rem;
+    --text-3xl--line-height: calc(2.3625 / 1.96875);
+
+    --text-4xl: 2.3625rem;
+    --text-4xl--line-height: calc(2.625 / 2.3625);
+
+    --text-5xl: 3.15rem;
+    --text-5xl--line-height: 1;
+
+    --text-6xl: 3.9375rem;
+    --text-6xl--line-height: 1;
+
+    --text-7xl: 4.725rem;
+    --text-7xl--line-height: 1;
+
+    --text-8xl: 6.3rem;
+    --text-8xl--line-height: 1;
+
+    --text-9xl: 8.4rem;
+    --text-9xl--line-height: 1;
+
+    /* Sidebar Menu Item Typography (+15% increase from 14px / 12px baseline) */
+    --text-sidebar-item: 1.00625rem;
+    --text-sidebar-item--line-height: 1.5rem;
+    --text-sidebar-item-sm: 0.8625rem;
+    --text-sidebar-item-sm--line-height: 1.25rem;
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-size: var(--text-base);
+    }
+}
+

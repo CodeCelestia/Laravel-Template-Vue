@@ -1,0 +1,80 @@
+<script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+import Heading from '@/components/Heading.vue';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { useCurrentUrl } from '@/composables/useCurrentUrl';
+import { toUrl } from '@/lib/utils';
+import { edit as editAppearance } from '@/routes/appearance';
+import { edit as editBranding } from '@/routes/branding';
+import { edit as editProfile } from '@/routes/profile';
+import { edit as editSecurity } from '@/routes/security';
+import type { NavItem } from '@/types';
+
+const sidebarNavItems: NavItem[] = [
+    {
+        title: 'Profile',
+        href: editProfile(),
+    },
+    {
+        title: 'Security',
+        href: editSecurity(),
+    },
+    {
+        title: 'Appearance',
+        href: editAppearance(),
+    },
+    {
+        title: 'Branding',
+        href: editBranding(),
+    },
+];
+
+const { isCurrentOrParentUrl } = useCurrentUrl();
+</script>
+
+<template>
+    <div
+        class="mx-auto flex h-full w-full max-w-[1536px] flex-1 flex-col gap-6 p-4 md:p-6"
+    >
+        <Heading
+            title="Settings"
+            description="Manage your profile and account settings"
+        />
+
+        <div class="flex flex-col lg:flex-row lg:space-x-12">
+            <aside class="w-full max-w-xl lg:w-48 shrink-0">
+                <nav
+                    class="flex flex-col space-y-1.5 space-x-0"
+                    aria-label="Settings"
+                >
+                    <Button
+                        v-for="item in sidebarNavItems"
+                        :key="toUrl(item.href)"
+                        variant="ghost"
+                        :class="[
+                            'w-full justify-start rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                            isCurrentOrParentUrl(item.href)
+                                ? 'bg-primary/10 text-primary font-semibold hover:bg-primary/15 hover:text-primary dark:bg-primary/20 dark:text-primary'
+                                : 'text-neutral-600 hover:text-foreground hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800',
+                        ]"
+                        as-child
+                    >
+                        <Link :href="item.href">
+                            <component :is="item.icon" class="h-4 w-4" />
+                            {{ item.title }}
+                        </Link>
+                    </Button>
+                </nav>
+            </aside>
+
+            <Separator class="my-6 lg:hidden" />
+
+            <div class="flex-1 min-w-0 max-w-5xl">
+                <section class="space-y-10">
+                    <slot />
+                </section>
+            </div>
+        </div>
+    </div>
+</template>
